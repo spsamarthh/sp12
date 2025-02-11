@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack - Your Fitness Journey Starts Here</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#00FF94">
+    <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="s.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>FitTrack</span>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#login" class="login-btn">Login</a></li>
+                <li><a href="#signup" class="signup-btn">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Track Your Fitness Journey</h1>
+                <p>Set goals, monitor progress, and achieve your fitness dreams</p>
+                <button class="cta-button" onclick="scrollToSignup()">
+                    <span>Start Tracking Now</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-running"></i>
+                    <h3>Activity Tracking</h3>
+                    <p>Log your daily activities and workouts</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Goal Setting</h3>
+                    <p>Set and achieve your fitness goals</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Progress Charts</h3>
+                    <p>Visualize your fitness journey</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="auth-section">
+            <div class="auth-container">
+                <h2>Login</h2>
+                <form id="login-form" onsubmit="return handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="auth-button">Login</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Signup Section -->
+        <section id="signup" class="auth-section">
+            <div class="auth-container">
+                <h2>Sign Up</h2>
+                <form id="signup-form" onsubmit="return handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+                    <button type="submit" class="auth-button">Sign Up</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard Section (Hidden by default) -->
+        <section id="dashboard" class="dashboard hidden">
+            <div class="dashboard-header">
+                <h2>Welcome, <span id="user-name">User</span>!</h2>
+                <button onclick="logout()" class="logout-btn">Logout</button>
+            </div>
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Daily Steps</h3>
+                    <p id="steps-count">0</p>
+                    <div class="progress-bar">
+                        <div id="steps-progress" class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Calories Burned</h3>
+                    <p id="calories-count">0</p>
+                    <div class="progress-bar">
+                        <div id="calories-progress" class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Distance (km)</h3>
+                    <p id="distance-count">0</p>
+                    <div class="progress-bar">
+                        <div id="distance-progress" class="progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="activity-log">
+                <h3>Log Activity</h3>
+                <form id="activity-form" onsubmit="return logActivity(event)">
+                    <div class="form-group">
+                        <label for="activity-type">Activity Type</label>
+                        <select id="activity-type" required>
+                            <option value="running">Running</option>
+                            <option value="walking">Walking</option>
+                            <option value="cycling">Cycling</option>
+                            <option value="swimming">Swimming</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="activity-duration">Duration (minutes)</label>
+                        <input type="number" id="activity-duration" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="activity-distance">Distance (km)</label>
+                        <input type="number" id="activity-distance" min="0" step="0.1" required>
+                    </div>
+                    <button type="submit" class="activity-button">Log Activity</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>FitTrack</h4>
+                <p>Your personal fitness companion</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#login">Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FitTrack. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
